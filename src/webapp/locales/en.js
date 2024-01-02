@@ -56,7 +56,7 @@ export default {
     nav: {
       login: 'Login',
       logout: 'Logout',
-      my_profile: 'My profil',
+      my_profile: 'My profile',
       dashboard: 'Dashboard',
       administration: 'Administration',
       users: 'Users',

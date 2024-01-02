@@ -6,7 +6,7 @@ include .env
 	cp .env.dist .env
 
 up: .env ## Start the Docker Compose stack.
-	docker-compose up -d
+	docker-compose up -d --build
 
 
 down: ## Stop the Docker Compose stack.
