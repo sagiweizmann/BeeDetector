@@ -1,0 +1,12 @@
+users:
+  headers:
+    id: "#"
+    first_name: "Prénom"
+    last_name: "Nom"
+    email: "Email"
+    locale: "Langue"
+    role: "Rôle"
+  values:
+    roles:
+      administrator: "Administateur"
+      user: "Utilisateur"
