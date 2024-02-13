@@ -69,6 +69,10 @@
       <b-link class="card-link" :to="localePath({ name: 'login' })">{{
         $t('common.nav.login')
       }}</b-link>
+
+      <b-link class="card-link" :to="localePath({ name: 'register' })">{{
+        $t('common.nav.register')
+      }}</b-link>
     </div>
   </b-card>
 </template>

@@ -43,8 +43,8 @@ final class AppFixtures extends Fixtures
     public function load(): void
     {
         $admin = new User(
-            $this->faker->firstName,
-            $this->faker->lastName,
+            'Sagi',
+            'Weizmann',
             'admin@admin.com',
             Locale::EN(),
             Role::ADMINISTRATOR()

@@ -1,4 +1,4 @@
-import logo from '@/assets/images/logo.svg'
+import logo from '@/assets/images/logo_small.png'
 import defaultProfilePicture from '@/assets/images/default-profile-picture.svg'
 import defaultProfilePictureWhite from '@/assets/images/default-profile-picture-white.svg'
 

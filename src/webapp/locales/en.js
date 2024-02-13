@@ -55,6 +55,7 @@ export default {
     },
     nav: {
       login: 'Login',
+      register: 'Register',
       logout: 'Logout',
       my_profile: 'My profile',
       dashboard: 'Dashboard',
