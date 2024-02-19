@@ -29,11 +29,17 @@
           trim
           required
         />
+      </b-form-group>
+      <b-form-group
+        id="input-group-password"
+        :label="$t('pages.register.password_repeat.label_required')"
+        label-for="input-password"
+      >
         <b-form-input
           id="input-password"
           v-model="form.password"
           type="password"
-          :placeholder="$t('pages.register.passwordrepeat.placeholder')"
+          :placeholder="$t('pages.register.password_repeat.placeholder')"
           trim
           required
         />
