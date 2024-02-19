@@ -59,12 +59,20 @@ export default {
       logout: 'Logout',
       my_profile: 'My profile',
       dashboard: 'Dashboard',
+      welcome_dashboard: 'Welcome to the management dashboard',
       administration: 'Administration',
       users: 'Users',
     },
     list: {
       actions: 'Actions',
     },
+  },
+  bee_detector: {
+    title: 'Welcome to The Bee Detector',
+    description: 'Detect bees in the video',
+    market_text: 'What do you want to bee today?',
+    via_flying: 'Via Flying video',
+    via_box: 'Via Box video',
   },
   // Translations of your components.
   components: {
@@ -95,8 +103,7 @@ export default {
   pages: {
     home: {
       welcome: 'Welcome!',
-      message:
-        'The Symfony Boilerplate provides a dummy application with core concepts and functionalities to help you build a modern web application.',
+      message: '',
     },
     login: {
       password: {
@@ -121,6 +128,18 @@ export default {
       },
       invalid_token_message: 'Your token has either expired or is invalid.',
       success_message: 'Your password has been updated.',
+    },
+    register: {
+      password: {
+        label_required: 'Password *',
+        placeholder: 'Enter your password',
+      },
+      password_repeat: {
+        label_required: 'Repeat Password *',
+        placeholder: 'Enter your password again',
+      },
+      error_message: 'The provided email or password is incorrect.',
+      forgot_password: 'I forgot my password',
     },
   },
 }
