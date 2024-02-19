@@ -10,6 +10,7 @@ export default {
     retry: 'Retry',
     create: 'Create',
     update: 'Update',
+    upload : 'Upload',
     edit: 'Edit',
     delete: 'Delete',
     confirm: 'Confirm',
@@ -71,8 +72,10 @@ export default {
     title: 'Welcome to The Bee Detector',
     description: 'Detect bees in the video',
     market_text: 'What do you want to bee today?',
-    via_flying: 'Via Flying video',
-    via_box: 'Via Box video',
+    via_flying: 'Detect Via Flying video',
+    via_box: 'Detect Via Box video',
+    welcome_upload: 'Upload a video to detect bees',
+    upload: 'Upload video',
   },
   // Translations of your components.
   components: {

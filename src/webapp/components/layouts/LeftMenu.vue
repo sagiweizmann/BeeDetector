@@ -30,6 +30,16 @@
       :active="$route.path === localePath({ name: 'dashboard' })"
       >{{ $t('common.nav.dashboard') }}</b-nav-item
     >
+    <b-nav-item
+      :to="localePath('/dashboard/via-flying')"
+      :active="$route.path === localePath('/dashboard/via-flying')"
+    >{{ $t('bee_detector.via_flying') }}</b-nav-item
+    >
+    <b-nav-item
+      :to="localePath('/dashboard/via-box')"
+      :active="$route.path === localePath('/dashboard/via-box')"
+    >{{ $t('bee_detector.via_box') }}</b-nav-item
+    >
     <div v-if="isGranted(ADMINISTRATOR)">
       <b-nav-text>{{ $t('common.nav.administration') }}</b-nav-text>
       <b-nav-item
