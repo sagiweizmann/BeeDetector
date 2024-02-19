@@ -98,7 +98,6 @@ export default {
       await this.$graphql.request(LogoutMutation)
       this.resetUser()
       this.$router.push(this.localePath({ name: 'login' }))
-      this.$router.push(this.localePath({ name: 'register' }))
     },
   },
 }
