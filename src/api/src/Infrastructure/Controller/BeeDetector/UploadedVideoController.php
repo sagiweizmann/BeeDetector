@@ -18,7 +18,7 @@ use TheCodingMachine\GraphQLite\Annotations\Security;
 final class UploadedVideoController extends DownloadController{
 
     // upload video
-    #[Route(path: '/bee-videos', methods: ['POST'])]
+    #[Route(path: '/upload', methods: ['POST'])]
     #[Security("is_granted('IS_AUTHENTICATED_FULLY')")]
     public function uploadVideo(Request $request): JsonResponse
     {
@@ -49,12 +49,14 @@ final class UploadedVideoController extends DownloadController{
         return new JsonResponse(['target' => $target]);
         //return new Response('File uploaded successfully' . $fileName .' whhere to ' . $target);
     }
-    #[Route(path: '/bee-videos/{filename}', methods: ['GET'])]
+    #[Route(path: '/analyze', methods: ['POST'])]
     #[Security("is_granted('IS_AUTHENTICATED_FULLY')")]
-    public function downloadVideoProfilePicture(
-        string $filename
-    ): Response {
-        return $this->download('bee-videos', $filename);
-    }
+    public function analyzeVideo(Request $request): JsonResponse
+    {
+        $videoPath = $request->request->get('videoPath');
 
+        $userId = $request->request->get('userId');
+
+
+    }
 }

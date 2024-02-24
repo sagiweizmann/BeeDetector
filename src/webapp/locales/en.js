@@ -11,6 +11,7 @@ export default {
     create: 'Create',
     update: 'Update',
     upload : 'Upload',
+    analyze : 'Analyze the video',
     edit: 'Edit',
     delete: 'Delete',
     confirm: 'Confirm',

@@ -30,10 +30,19 @@
         {{ $t('common.upload') }}
       </b-button>
     </b-form>
-    <video v-if="videoShow" ref="videoPlayer" controls width="600" height="400">
-      <source :src="videoSource" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <b-form v-if="videoShow" @submit.stop.prevent="onSubmitAnalyze">
+      <video ref="videoPlayer" controls width="600" height="400">
+        <source :src="videoSource" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <b-button
+        type="submit"
+        variant="primary"
+        :disabled="videoSource === null"
+      >
+        {{ $t('common.analyze') }}
+      </b-button>
+    </b-form>
   </div>
 </template>
 
@@ -70,7 +79,7 @@ export default {
       formData.append('userId', this.user.id);
       //formData.append('userId', this.getUser().id);
       try {
-        const response = await fetch(this.$config.apiURL + 'videos/bee-videos', {
+        const response = await fetch(this.$config.apiURL + 'videos/upload', {
           method: 'POST',
           body: formData
         });
@@ -94,6 +103,32 @@ export default {
         this.hideGlobalOverlay()
       }
     },
+    async onSubmitAnalyze(){
+      this.resetFormErrors()
+      this.displayGlobalOverlay()
+      const formData = new FormData();
+      formData.append('videoPath', this.videoResponse);
+      formData.append('userId', this.user.id);
+
+      try {
+        const response = await fetch(this.$config.apiURL + 'videos/analyze', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to analyze video');
+        }
+
+        console.log('Video analyzed successfully');
+
+      } catch (e) {
+        console.error(e);
+        this.hydrateFormErrors(e)
+      } finally {
+        this.hideGlobalOverlay()
+      }
+    }
   },
 }
 </script>
