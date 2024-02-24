@@ -7,13 +7,13 @@
       <br/>
       <h3>{{ $t('bee_detector.market_text') }}</h3>
       <br/>
-      <b-button variant="primary">
-        {{ $t('bee_detector.via_flying') }}
-      </b-button>
+      <b-button variant="primary"
+                :to="localePath('/dashboard/via-flying')"
+      >{{ $t('bee_detector.via_flying') }}</b-button>
       <br/>
-      <b-button variant="primary">
-        {{ $t('bee_detector.via_box') }}
-      </b-button>
+      <b-button variant="primary"
+                :to="localePath('/dashboard/via-box')"
+      >{{ $t('bee_detector.via_box') }}</b-button>
     </div>
   </div>
 </template>

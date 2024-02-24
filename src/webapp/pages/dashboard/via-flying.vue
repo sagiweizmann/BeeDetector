@@ -1,10 +1,6 @@
 <template>
   <div>
-    <b-row>
-      <h3>
-        {{ $t('bee_detector.welcome_upload') }}
-      </h3>
-    </b-row>
+    <h3>{{ $t('bee_detector.welcome_upload') }}</h3>
     <b-form @submit.stop.prevent="onSubmit">
       <b-form-group
         id="input-group-video"
@@ -34,6 +30,10 @@
         {{ $t('common.upload') }}
       </b-button>
     </b-form>
+    <video v-if="videoShow" ref="videoPlayer" controls width="600" height="400">
+      <source :src="videoSource" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 </template>
 
@@ -45,7 +45,6 @@ import {Auth} from "@/mixins/auth";
 import {Roles} from "@/mixins/roles";
 import {Images} from "@/mixins/images";
 import {GlobalOverlay} from "@/mixins/global-overlay";
-import {UpdateProfilePictureMutation} from "@/graphql/users/update_profile_picture.mutation";
 
 export default {
   components: {FilesList, ErrorsList},
@@ -57,28 +56,43 @@ export default {
       form: {
         flying_video: null,
       },
+      videoResponse: null,
+      videoSource: null,
+      videoShow: false,
     }
   },
   methods: {
     async onSubmit() {
       this.resetFormErrors()
       this.displayGlobalOverlay()
+      const formData = new FormData();
+      formData.append('beeVideo', this.form.flying_video);
+      formData.append('userId', this.user.id);
+      //formData.append('userId', this.getUser().id);
+      try {
+        const response = await fetch(this.$config.apiURL + 'videos/bee-videos', {
+          method: 'POST',
+          body: formData
+        });
 
-      // try {
-      //   const result = await this.$graphql.request(
-      //     UpdateProfilePictureMutation,
-      //     {
-      //       flying_video: this.form.flying_video,
-      //     }
-      //   )
-      //
-      //   this.setUserProfilePicture(result.updateProfilePicture.profilePicture)
-      //   this.form.flying_video = null
-      // } catch (e) {
-      //   this.hydrateFormErrors(e)
-      // } finally {
-      //   this.hideGlobalOverlay()
-      // }
+        if (!response.ok) {
+          throw new Error('Failed to upload video');
+        }
+
+        console.log('Video uploaded successfully');
+        this.form.flying_video = null;
+        const responseData = await response.json();
+        // store the response data
+        this.videoResponse = responseData.target;
+        this.videoShow = true;
+        this.videoSource = this.$config.apiURL + this.videoResponse;
+
+      } catch (e) {
+        console.error(e);
+        this.hydrateFormErrors(e)
+      } finally {
+        this.hideGlobalOverlay()
+      }
     },
   },
 }

@@ -4,7 +4,8 @@ FROM thecodingmachine/php:8.0-v4-slim-apache
 # PHP settings.
 ENV TEMPLATE_PHP_INI "production"
 ENV PHP_INI_MEMORY_LIMIT="128M"
-
+ENV PHP_INI_UPLOAD_MAX_FILESIZE="0"
+ENV PHP_INI_POST_MAX_SIZE="0"
 # Apache settings.
 ENV APACHE_DOCUMENT_ROOT="public/"
 RUN echo "\nServerTokens Prod\nServerSignature Off\n" | sudo tee -a /etc/apache2/sites-available/000-default.conf
