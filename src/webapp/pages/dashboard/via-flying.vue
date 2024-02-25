@@ -119,7 +119,10 @@ export default {
         if (!response.ok) {
           throw new Error('Failed to analyze video');
         }
-
+        const responseData = await response.json();
+        // store the response data
+        //this.videoResponse = responseData.target;
+        //console.log(this.videoResponse);
         console.log('Video analyzed successfully');
 
       } catch (e) {

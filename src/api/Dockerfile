@@ -32,3 +32,27 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Clear and warm-up cache.
 RUN php bin/console cache:clear
+
+# Run apt-get update and install python3.9 and pip3.
+USER root
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx
+
+RUN apt-get update && apt-get install -y python3.9 python3-pip python3.9-venv
+
+# cd /var/www/html/beedetectorai/ and create a virtual environment.
+
+WORKDIR /var/www/html/beedetectorai/
+RUN python3.9 -m venv venv
+
+# Install the required packages from requirements.txt.
+COPY requirements.txt .
+RUN . venv/bin/activate && pip3 install -r requirements.txt
+
+
+
+
+
+

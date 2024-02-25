@@ -25,3 +25,5 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+/beedetectorai/venv/
+/public/bee-videos/

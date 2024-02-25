@@ -47,7 +47,6 @@ final class UploadedVideoController extends DownloadController{
         // You may want to do something else with the file, like saving its path to a database
         // return a json response with the target
         return new JsonResponse(['target' => $target]);
-        //return new Response('File uploaded successfully' . $fileName .' whhere to ' . $target);
     }
     #[Route(path: '/analyze', methods: ['POST'])]
     #[Security("is_granted('IS_AUTHENTICATED_FULLY')")]
@@ -57,6 +56,20 @@ final class UploadedVideoController extends DownloadController{
 
         $userId = $request->request->get('userId');
 
+        $realPath = '/var/www/html/public/' . $videoPath;
 
+        // Activate the virtual environment first
+        try {
+            $output = shell_exec('cd /var/www/html/beedetectorai && /var/www/html/beedetectorai/venv/bin/python /var/www/html/beedetectorai/AnalyzeVideo.py ' . $realPath);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()]);
+        }
+
+        //remove the .mp4 from the $videoPath and add _out33.mp4
+        $videoOutput  = str_replace('.mp4', '_out33.mp4', $videoPath);
+        $csvOutput  = str_replace('.mp4', '_out33.mp4.csv', $videoPath);
+
+        return new JsonResponse(['target' => $realPath , 'output' => $output ,
+            'videoOutput' => $videoOutput , 'csvOutput' => $csvOutput]);
     }
 }
