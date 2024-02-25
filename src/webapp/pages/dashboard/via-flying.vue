@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3>{{ $t('bee_detector.welcome_upload') }}</h3>
     <b-form @submit.stop.prevent="onSubmit">
+      <h3>{{ $t('bee_detector.welcome_upload') }}</h3>
       <b-form-group
         id="input-group-video"
         :label="$t('bee_detector.upload')"
@@ -43,6 +43,26 @@
         {{ $t('common.analyze') }}
       </b-button>
     </b-form>
+    <div v-if="analyzedVideoShow" id="analyzed-video">
+      <video ref="analyzedVideoPlayer" controls width="600" height="400">
+        <source :src="analyzedVideoSource" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <a :href="analyzedVideoSource" download>
+        <b-button
+          variant="primary"
+        >
+          {{ $t('common.download_video') }}
+        </b-button>
+      </a>
+      <a :href="analyzedCsvFile" download>
+        <b-button
+          variant="primary"
+        >
+          {{ $t('common.download_csv') }}
+        </b-button>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -68,16 +88,20 @@ export default {
       videoResponse: null,
       videoSource: null,
       videoShow: false,
+      analyzedVideoSource: null,
+      analyzedVideoShow: false,
+      analyzedCsvFile: null,
     }
   },
   methods: {
     async onSubmit() {
       this.resetFormErrors()
       this.displayGlobalOverlay()
+      this.videoShow = false;
+      this.analyzedVideoShow = false;
       const formData = new FormData();
       formData.append('beeVideo', this.form.flying_video);
       formData.append('userId', this.user.id);
-      //formData.append('userId', this.getUser().id);
       try {
         const response = await fetch(this.$config.apiURL + 'videos/upload', {
           method: 'POST',
@@ -120,9 +144,11 @@ export default {
           throw new Error('Failed to analyze video');
         }
         const responseData = await response.json();
-        // store the response data
-        //this.videoResponse = responseData.target;
-        //console.log(this.videoResponse);
+
+        this.analyzedVideoShow = true;
+        this.analyzedVideoSource = this.$config.apiURL + responseData.videoOutput;
+        this.analyzedCsvFile = this.$config.apiURL + responseData.csvOutput;
+
         console.log('Video analyzed successfully');
 
       } catch (e) {
@@ -137,5 +163,16 @@ export default {
 </script>
 
 <style scoped>
-
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+#analyzed-video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 </style>

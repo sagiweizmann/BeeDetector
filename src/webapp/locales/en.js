@@ -12,6 +12,8 @@ export default {
     update: 'Update',
     upload : 'Upload',
     analyze : 'Analyze the video',
+    download_video : 'Download the video',
+    download_csv : 'Download the csv',
     edit: 'Edit',
     delete: 'Delete',
     confirm: 'Confirm',
