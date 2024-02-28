@@ -56,11 +56,23 @@ final class UploadedVideoController extends DownloadController{
 
         $userId = $request->request->get('userId');
 
+        $new_fps = $request->request->get('newFps');
+
+        $min_move_distance = $request->request->get('minMoveDistance');
+
+        $max_move_distance = $request->request->get('maxMoveDistance');
+
         $realPath = '/var/www/html/public/' . $videoPath;
+
+        $parameters = '--new_fps ' . $new_fps .
+                      ' --min_move_distance ' . $min_move_distance .
+                      ' --max_move_distance ' . $max_move_distance;
 
         // Activate the virtual environment first
         try {
-            $output = shell_exec('cd /var/www/html/beedetectorai && /var/www/html/beedetectorai/venv/bin/python /var/www/html/beedetectorai/AnalyzeVideo.py ' . $realPath);
+            $output = shell_exec('cd /var/www/html/beedetectorai &&
+             /var/www/html/beedetectorai/venv/bin/python /var/www/html/beedetectorai/AnalyzeVideo.py '
+                . $realPath . ' ' . $parameters);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()]);
         }
@@ -70,8 +82,12 @@ final class UploadedVideoController extends DownloadController{
         //try chmod the file
         try {
             $realPathVideoOutput = '/var/www/html/public/' . $videoOutput;
+            $videoOutput  = str_replace('.mp4', '_analyzed.mp4', $videoPath);
+            $convertedVideoOutput = '/var/www/html/public/' . $videoOutput;
             $realPathCsvOutput = '/var/www/html/public/' . $csvOutput;
-            chmod($realPathVideoOutput, 0666);
+            $command = "ffmpeg -i $realPathVideoOutput -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 192k $convertedVideoOutput";
+            shell_exec($command);
+            unlink($realPathVideoOutput);
             chmod($realPathCsvOutput, 0666);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()]);
@@ -79,6 +95,6 @@ final class UploadedVideoController extends DownloadController{
 
 
         return new JsonResponse(['target' => $realPath , 'output' => $output ,
-            'videoOutput' => $videoOutput , 'csvOutput' => $csvOutput]);
+            'videoOutput' => $videoOutput , 'csvOutput' => $csvOutput , 'parameters' => $parameters]);
     }
 }

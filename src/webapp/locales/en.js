@@ -80,8 +80,11 @@ export default {
     download_package : 'Download Code Package',
     link_collab : 'Link to Google Collab',
     faq : 'Frequently Asked Questions',
-    welcome_upload: 'Upload a video to detect bees',
+    welcome_upload: 'Upload a video to destect bees',
     upload: 'Upload video',
+    max_fps : 'New FPS',
+    min_move_distance : 'Minimum Move Distance',
+    max_move_distance : 'Maximum Move Distance',
   },
   // Translations of your components.
   components: {

@@ -40,19 +40,15 @@
       :active="$route.path === localePath('/dashboard/via-box')"
     >{{ $t('bee_detector.via_box') }}</b-nav-item
     >
-    <a href="https://github.com/sagiweizmann/BeeDetector/tree/master/src/api/beedetectorai">
-    <b-nav-item
+    <b-nav-item href="https://github.com/sagiweizmann/BeeDetector/tree/master/src/api/beedetectorai"
     >{{ $t('bee_detector.download_package') }}</b-nav-item
     >
-    </a>
-    <a href="https://github.com/sagiweizmann/BeeDetector/tree/master/src/api/beedetectorai">
-      <b-nav-item
-      >{{ $t('bee_detector.link_collab') }}</b-nav-item
-      >
-    </a>
+    <b-nav-item href="https://github.com/sagiweizmann/BeeDetector/tree/master/src/api/beedetectorai"
+    >{{ $t('bee_detector.link_collab') }}</b-nav-item
+    >
     <b-nav-item
-      :to="localePath('/dashboard/via-box')"
-      :active="$route.path === localePath('/dashboard/via-box')"
+      :to="localePath('/dashboard/faq')"
+      :active="$route.path === localePath('/dashboard/faq')"
     >{{ $t('bee_detector.faq') }}</b-nav-item
     >
     <div v-if="isGranted(ADMINISTRATOR)">
