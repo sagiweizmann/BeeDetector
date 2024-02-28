@@ -41,7 +41,7 @@ final class UploadedVideoController extends DownloadController{
                 $fileName
             );
         } catch (FileException $e) {
-            // Handle the exception
+            return new JsonResponse(['error' => $e->getMessage()]);
         }
         $target = $directory . $fileName;
         // You may want to do something else with the file, like saving its path to a database
