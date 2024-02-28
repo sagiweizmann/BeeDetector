@@ -101,4 +101,28 @@ final class CreateUser
 
         return $user;
     }
+    /**
+     * @throws InvalidModel
+     * @throws InvalidStorable
+     */
+    #[Mutation]
+    public function register(
+        string $email,
+        string $firstName,
+        string $lastName,
+        string $password,
+    ): User {
+        $user = new User(
+            $firstName,
+            $lastName,
+            $email,
+            Locale::EN(),
+            Role::USER()
+        );
+        $user->setPassword($password);
+
+        $this->userDao->save($user);
+
+        return $user;
+    }
 }

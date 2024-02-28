@@ -55,6 +55,14 @@
         >
           {{ $t('common.nav.login') }}
         </b-nav-item>
+        <b-nav-item
+          v-if="!isAuthenticated"
+          right
+          :to="localePath('/register')"
+          :active="$route.path === localePath('/register')"
+        >
+          {{ $t('common.nav.register') }}
+        </b-nav-item>
         <b-nav-item-dropdown right>
           <template #button-content>
             {{ currentLocale }}

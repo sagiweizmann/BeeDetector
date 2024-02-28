@@ -2,6 +2,36 @@
   <b-card>
     <b-form @submit.stop.prevent="onSubmit">
       <b-form-group
+        id="input-group-firstname"
+        :label="$t('common.user.first_name.label_required')"
+        label-for="input-firstname"
+      >
+        <b-form-input
+          id="input-firstname"
+          v-model="form.firstname"
+          type="text"
+          :placeholder="$t('common.user.first_name.label')"
+          autofocus
+          trim
+          required
+        />
+      </b-form-group>
+      <b-form-group
+        id="input-group-lastname"
+        :label="$t('common.user.last_name.label_required')"
+        label-for="input-firstname"
+      >
+        <b-form-input
+          id="input-firstname"
+          v-model="form.lastname"
+          type="text"
+          :placeholder="$t('common.user.last_name.label')"
+          autofocus
+          trim
+          required
+        />
+      </b-form-group>
+      <b-form-group
         id="input-group-email"
         :label="$t('common.email.label_required')"
         label-for="input-email"
@@ -57,14 +87,17 @@ import { Form } from '@/mixins/form'
 import { UpdateLocaleMutation } from '@/graphql/auth/update_locale.mutation'
 import { RegisterMutation } from '@/graphql/auth/register.mutation' // Assuming you have a registration mutation
 import { Auth } from '@/mixins/auth'
+import {GenericToast} from "@/mixins/generic-toast";
 
 export default {
-  mixins: [Auth, Form, GlobalOverlay],
+  mixins: [Auth, Form, GlobalOverlay ,GenericToast],
   layout: 'card',
   middleware: ['redirect-if-authenticated'],
   data() {
     return {
       form: {
+        firstname: this.$route.query.firstname || '',
+        lastname: this.$route.query.lastname || '',
         email: this.$route.query.email || '',
         password: '',
       },
@@ -79,25 +112,15 @@ export default {
       try {
         const result = await this.$graphql.request(RegisterMutation, {
           email: this.form.email,
+          firstName: this.form.firstname,
+          lastName: this.form.lastname,
           password: this.form.password,
         })
 
-        // You can perform additional actions if needed after successful registration.
-        // Update user's locale if different from the
-        // web application locale.
-        if (result.login.locale !== this.$i18n.locale) {
-          await this.$graphql.request(UpdateLocaleMutation, {
-            locale: this.$i18n.locale.toUpperCase(),
-          })
+        this.genericSuccessToast()
 
-          result.login.locale = this.$i18n.locale
-        }
+        this.$router.push(this.localePath({ name: 'login' }))
 
-        if (this.redirect !== '') {
-          this.$router.push(this.redirect)
-        } else {
-          this.$router.push(this.localePath({ name: 'dashboard' }))
-        }
       } catch (e) {
         this.hydrateFormErrors(e, true)
       } finally {

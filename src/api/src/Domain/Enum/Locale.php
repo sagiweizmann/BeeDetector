@@ -17,6 +17,8 @@ final class Locale extends Enum
     private const EN = 'en';
     private const FR = 'fr';
 
+    private const HE = 'he';
+
     /**
      * @return string[]
      */
@@ -25,6 +27,7 @@ final class Locale extends Enum
         return [
             self::EN,
             self::FR,
+            self::HE,
         ];
     }
 }
