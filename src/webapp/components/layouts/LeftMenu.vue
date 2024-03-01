@@ -40,10 +40,10 @@
       :active="$route.path === localePath('/dashboard/via-box')"
     >{{ $t('bee_detector.via_box') }}</b-nav-item
     >
-    <b-nav-item href="https://github.com/sagiweizmann/BeeDetector/tree/master/src/api/beedetectorai"
+    <b-nav-item href="https://github.com/sagiweizmann/BeeDetector/tree/master/src/api/beedetectorai" target=”_blank”
     >{{ $t('bee_detector.download_package') }}</b-nav-item
     >
-    <b-nav-item href="https://colab.research.google.com/drive/1mw5IPSNtTD6DMg406nCXW-q6Wanwf8ox?usp=sharing#scrollTo=-FKLgr0mGKH-"
+    <b-nav-item href="https://colab.research.google.com/drive/1mw5IPSNtTD6DMg406nCXW-q6Wanwf8ox?usp=sharing#scrollTo=-FKLgr0mGKH-" target=”_blank”
     >{{ $t('bee_detector.link_collab') }}</b-nav-item
     >
     <b-nav-item
@@ -54,7 +54,7 @@
     <b-nav-item
       :to="localePath('/dashboard/contact')"
       :active="$route.path === localePath('/dashboard/contact')"
-    >{{ $t('bee_detector.faq') }}</b-nav-item
+    >{{ $t('bee_detector.contact') }}</b-nav-item
     >
     <div v-if="isGranted(ADMINISTRATOR)">
       <b-nav-text>{{ $t('common.nav.administration') }}</b-nav-text>

@@ -23,7 +23,19 @@
         </b-nav-item>
       </b-navbar-nav>
 
+      <b-img
+        :src="argiLogoImageURL"
+        class="d-inline-block align-middle"
+        style="width: 10rem; height: 5rem"
+      ></b-img
+      >&nbsp;
       <b-navbar-nav class="ml-auto">
+        <b-img
+          :src="sceLogoImageURL"
+          class="d-inline-block align-middle"
+          style="width: 8rem; height: 3rem"
+        ></b-img
+        >&nbsp;
         <b-nav-item-dropdown v-if="isAuthenticated" right>
           <template #button-content>
             <b-img

@@ -187,7 +187,7 @@ if __name__ == '__main__':
     # Model
 
     #model = LoadModel.LoadModel()
-    model = torch.hub.load('ultralytics/yolov5', 'custom',path=r'bestFlying.pt')
+    model = torch.hub.load('ultralytics/yolov5', 'custom',path=r'./Data/FlyingMovies/bestFlying.pt')
 
 
     #fileName = 'S3000022.MP4' #'S3000006.mp4'  #
