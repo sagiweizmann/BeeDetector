@@ -86,6 +86,11 @@ export default {
     max_fps : 'New FPS',
     min_move_distance : 'Minimum Move Distance',
     max_move_distance : 'Maximum Move Distance',
+    contact_text : 'For any questions or concerns, please contact us at: ',
+    contact_tamar : 'tammarm@gmail.com',
+    contact_hadas : 'hadasda1@ac.sce.ac.il',
+    contact_name_hadas : 'Hadassa Daltrophe',
+    contact_name_tamar : 'Tammar Shrot',
   },
   // Translations of your components.
   components: {

@@ -1,9 +1,15 @@
 <template>
   <!-- contact page -->
   <div>
-    <h1>Contact</h1>
-    <p>For any questions or concerns, please contact us at: <a href="mailto:" target="_top">
-      </a></p>
+    <h1>{{ $t('bee_detector.contact') }}</h1>
+    <p>{{ $t('bee_detector.contact_text') }}
+      <br>
+      <a href="mailto:hadasda1@ac.sce.ac.il" target="_top">{{ $t('bee_detector.contact_name_hadas') }}
+      </a>
+      <br>
+      <a href="mailto:tammarm@gmail.com" target="_top">{{ $t('bee_detector.contact_name_tamar') }}
+      </a>
+    </p>
   </div>
 
 </template>

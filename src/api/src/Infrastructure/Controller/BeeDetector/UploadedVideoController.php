@@ -80,9 +80,48 @@ final class UploadedVideoController extends DownloadController{
         $videoOutput  = str_replace('.mp4', '_out33.mp4', $videoPath);
         $csvOutput  = str_replace('.mp4', '_out33.mp4.csv', $videoPath);
         //try chmod the file
+        return $this->analyzenconvert($videoOutput, $videoPath, $csvOutput, $realPath, $output, $parameters);
+    }
+    #[Route(path: '/analyzeflying', methods: ['POST'])]
+    #[Security("is_granted('IS_AUTHENTICATED_FULLY')")]
+    public function analyzeFlyingVideo(Request $request): JsonResponse
+    {
+        $videoPath = $request->request->get('videoPath');
+
+        $userId = $request->request->get('userId');
+
+        $realPath = '/var/www/html/public/' . $videoPath;
+
+        $parameters = '';
+
+        // Activate the virtual environment first
+        try {
+            $output = shell_exec('cd /var/www/html/beedetectorai &&
+             /var/www/html/beedetectorai/venv/bin/python /var/www/html/beedetectorai/AnalyzeVideoFlyingBees.py '
+                . $realPath . ' ' . $parameters);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()]);
+        }
+        //remove the .mp4 from the $videoPath and add _out33.mp4
+        $videoOutput  = str_replace('.mp4', '_out31.mp4', $videoPath);
+        $csvOutput  = str_replace('.mp4', '_out31.mp4.csv', $videoPath);
+        //try chmod the file
+        return $this->analyzenconvert($videoOutput, $videoPath, $csvOutput, $realPath, $output, $parameters);
+    }
+
+    /**
+     * @param  $videoOutput
+     * @param  $videoPath
+     * @param  $csvOutput
+     * @param string $realPath
+     * @param  $output
+     * @param string $parameters
+     * @return JsonResponse
+     */
+    protected function analyzenconvert($videoOutput, $videoPath, $csvOutput, string $realPath, $output, string $parameters): JsonResponse {
         try {
             $realPathVideoOutput = '/var/www/html/public/' . $videoOutput;
-            $videoOutput  = str_replace('.mp4', '_analyzed.mp4', $videoPath);
+            $videoOutput = str_replace('.mp4', '_analyzed.mp4', $videoPath);
             $convertedVideoOutput = '/var/www/html/public/' . $videoOutput;
             $realPathCsvOutput = '/var/www/html/public/' . $csvOutput;
             $command = "ffmpeg -i $realPathVideoOutput -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 192k $convertedVideoOutput";
@@ -94,7 +133,7 @@ final class UploadedVideoController extends DownloadController{
         }
 
 
-        return new JsonResponse(['target' => $realPath , 'output' => $output ,
-            'videoOutput' => $videoOutput , 'csvOutput' => $csvOutput , 'parameters' => $parameters]);
+        return new JsonResponse(['target' => $realPath, 'output' => $output,
+            'videoOutput' => $videoOutput, 'csvOutput' => $csvOutput, 'parameters' => $parameters]);
     }
 }

@@ -31,25 +31,20 @@
       >{{ $t('common.nav.dashboard') }}</b-nav-item
     >
     <b-nav-item
-      :to="localePath('/dashboard/via-flying')"
-      :active="$route.path === localePath('/dashboard/via-flying')"
-    >{{ $t('bee_detector.via_flying') }}</b-nav-item
-    >
-    <b-nav-item
       :to="localePath('/dashboard/via-box')"
       :active="$route.path === localePath('/dashboard/via-box')"
     >{{ $t('bee_detector.via_box') }}</b-nav-item
+    >
+    <b-nav-item
+      :to="localePath('/dashboard/via-flying')"
+      :active="$route.path === localePath('/dashboard/via-flying')"
+    >{{ $t('bee_detector.via_flying') }}</b-nav-item
     >
     <b-nav-item href="https://github.com/sagiweizmann/BeeDetector/tree/master/src/api/beedetectorai" target=”_blank”
     >{{ $t('bee_detector.download_package') }}</b-nav-item
     >
     <b-nav-item href="https://colab.research.google.com/drive/1mw5IPSNtTD6DMg406nCXW-q6Wanwf8ox?usp=sharing#scrollTo=-FKLgr0mGKH-" target=”_blank”
     >{{ $t('bee_detector.link_collab') }}</b-nav-item
-    >
-    <b-nav-item
-      :to="localePath('/dashboard/faq')"
-      :active="$route.path === localePath('/dashboard/faq')"
-    >{{ $t('bee_detector.faq') }}</b-nav-item
     >
     <b-nav-item
       :to="localePath('/dashboard/contact')"

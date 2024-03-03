@@ -7,6 +7,7 @@ import LoadModel
 import torch
 import sort
 import numpy as np
+import argparse
 
 
 def timeStr1(count, fps):
@@ -194,9 +195,10 @@ if __name__ == '__main__':
     #inVideoPath = r'.\Data\FlyingMovies\\' + fileName   # S2810006.MP4'#S2940007.MP4'#S2940002.MP4'#S2810006.MP4'
     #outVideoPath = inVideoPath[:-4] + '_out31.mp4'
     #AnalyzeVideoFlyingBees(model, inVideoPath, outVideoPath)
+    parser = argparse.ArgumentParser(description='Analyze flying bee video with default or custom parameters.')
+    parser.add_argument('filename', type=str, help='Input video filename with path')
+    args = parser.parse_args()
+    outVideoPath = args.filename[:-4]+ '_out31.mp4'
+    outCsvPath = outVideoPath + '.csv'
 
-    fileName = 'S3000002.MP4'  # 'S3000006.mp4'  #
-    inVideoPath = r'.\Data\FlyingImages\yoloDataset\\' + fileName  # S2810006.MP4'#S2940007.MP4'#S2940002.MP4'#S2810006.MP4'
-    outVideoPath = inVideoPath[:-4] + '_out31.mp4'
-    outCsvPath = inVideoPath[:-4] + '_out31.csv'
-    AnalyzeVideoFlyingBees(model, inVideoPath, outCsvPath, outVideoPath)
+    AnalyzeVideoFlyingBees(model, args.filename, outCsvPath, outVideoPath)

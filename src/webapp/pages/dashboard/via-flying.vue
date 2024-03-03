@@ -35,44 +35,6 @@
         <source :src="videoSource" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-      <div id="analyzed-video-buttons">
-      <b-form-group
-        id="input-group-fps"
-        :label="$t('bee_detector.max_fps')"
-        label-for="input-fps"
-      >
-        <b-form-input
-          id="input-fps"
-          v-model="form.new_fps"
-          type="text"
-          :placeholder="form.new_fps"
-        />
-      </b-form-group>
-      <b-form-group
-        id="input-group-min-move-distance"
-        :label="$t('bee_detector.min_move_distance')"
-        label-for="input-min-move-distance"
-      >
-        <b-form-input
-          id="input-min-move-distance"
-          v-model="form.min_move_distance"
-          type="text"
-          :placeholder="form.min_move_distance"
-        />
-      </b-form-group>
-      <b-form-group
-        id="input-group-max-move-distance"
-        :label="$t('bee_detector.max_move_distance')"
-        label-for="input-max-move-distance"
-      >
-        <b-form-input
-          id="input-max-move-distance"
-          v-model="form.max_move_distance"
-          type="text"
-          :placeholder="form.max_move_distance"
-        />
-      </b-form-group>
-      </div>
       <b-button
         type="submit"
         variant="primary"
@@ -125,9 +87,6 @@ export default {
     return {
       form: {
         flying_video: null,
-        new_fps: 50,
-        min_move_distance: 3,
-        max_move_distance: 7,
       },
       videoResponse: null,
       videoSource: null,
@@ -177,12 +136,9 @@ export default {
       const formData = new FormData();
       formData.append('videoPath', this.videoResponse);
       formData.append('userId', this.user.id);
-      formData.append('newFps', this.form.new_fps);
-      formData.append('minMoveDistance', this.form.min_move_distance);
-      formData.append('maxMoveDistance', this.form.max_move_distance);
 
       try {
-        const response = await fetch(this.$config.apiURL + 'videos/analyze', {
+        const response = await fetch(this.$config.apiURL + 'videos/analyzeflying', {
           method: 'POST',
           body: formData
         });
