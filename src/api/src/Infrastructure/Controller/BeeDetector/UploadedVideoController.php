@@ -7,10 +7,12 @@ use App\Domain\Model\User;
 use App\Infrastructure\Controller\DownloadController;
 use App\UseCase\User\GetUser;
 use Laminas\Diactoros\Response\JsonResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use TheCodingMachine\GraphQLite\Annotations\Security;
 
@@ -68,6 +70,19 @@ final class UploadedVideoController extends DownloadController{
                       ' --min_move_distance ' . $min_move_distance .
                       ' --max_move_distance ' . $max_move_distance;
 
+        //remove the .mp4 from the $videoPath and add _out33.mp4
+        $videoOutput  = str_replace('.mp4', '_out33.mp4', $videoPath);
+        $csvOutput  = str_replace('.mp4', '_out33.mp4.csv', $videoPath);
+        $videoOutputAnalyzed = str_replace('.mp4', '_analyzed.mp4', $videoPath);
+
+        try {
+            shell_exec("rm " . '/var/www/html/public/' . $videoOutput);
+            shell_exec("rm " . '/var/www/html/public/' . $csvOutput);
+            shell_exec("rm " . '/var/www/html/public/' . $videoOutputAnalyzed);
+        } catch (\Exception $e) {
+
+        }
+
         // Activate the virtual environment first
         try {
             $output = shell_exec('cd /var/www/html/beedetectorai &&
@@ -76,9 +91,7 @@ final class UploadedVideoController extends DownloadController{
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()]);
         }
-        //remove the .mp4 from the $videoPath and add _out33.mp4
-        $videoOutput  = str_replace('.mp4', '_out33.mp4', $videoPath);
-        $csvOutput  = str_replace('.mp4', '_out33.mp4.csv', $videoPath);
+
         //try chmod the file
         return $this->analyzenconvert($videoOutput, $videoPath, $csvOutput, $realPath, $output, $parameters);
     }
@@ -94,7 +107,19 @@ final class UploadedVideoController extends DownloadController{
 
         $parameters = '';
 
-        // Activate the virtual environment first
+        //remove the .mp4 from the $videoPath and add _out33.mp4
+        $videoOutput  = str_replace('.mp4', '_out31.mp4', $videoPath);
+        $csvOutput  = str_replace('.mp4', '_out31.mp4.csv', $videoPath);
+        $videoOutputAnalyzed = str_replace('.mp4', '_analyzed.mp4', $videoPath);
+
+        try {
+            unlink('/var/www/html/public/' . $videoOutput);
+            unlink('/var/www/html/public/' . $csvOutput);
+            unlink('/var/www/html/public/' . $videoOutputAnalyzed);
+        } catch (\Exception $e) {
+
+        }
+
         try {
             $output = shell_exec('cd /var/www/html/beedetectorai &&
              /var/www/html/beedetectorai/venv/bin/python /var/www/html/beedetectorai/AnalyzeVideoFlyingBees.py '
@@ -102,9 +127,7 @@ final class UploadedVideoController extends DownloadController{
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()]);
         }
-        //remove the .mp4 from the $videoPath and add _out33.mp4
-        $videoOutput  = str_replace('.mp4', '_out31.mp4', $videoPath);
-        $csvOutput  = str_replace('.mp4', '_out31.mp4.csv', $videoPath);
+
         //try chmod the file
         return $this->analyzenconvert($videoOutput, $videoPath, $csvOutput, $realPath, $output, $parameters);
     }
@@ -126,7 +149,6 @@ final class UploadedVideoController extends DownloadController{
             $realPathCsvOutput = '/var/www/html/public/' . $csvOutput;
             $command = "ffmpeg -i $realPathVideoOutput -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 192k $convertedVideoOutput";
             shell_exec($command);
-            unlink($realPathVideoOutput);
             chmod($realPathCsvOutput, 0666);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()]);
@@ -135,5 +157,29 @@ final class UploadedVideoController extends DownloadController{
 
         return new JsonResponse(['target' => $realPath, 'output' => $output,
             'videoOutput' => $videoOutput, 'csvOutput' => $csvOutput, 'parameters' => $parameters]);
+    }
+
+    #[Route(path: '/download', methods: ['POST'])]
+    #[Security("is_granted('IS_AUTHENTICATED_FULLY')")]
+    public function downloadFile(Request $request)
+    {
+        $fileName = $request->request->get('filename');
+
+        $filePath =  '/var/www/html/public/' . $fileName;
+        if (!file_exists($filePath)) {
+            throw $this->createNotFoundException('The file does not exist.');
+        }
+
+        // Create a BinaryFileResponse to send the file as a response
+        $response = new BinaryFileResponse($filePath);
+
+        // Set the file name for download
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            "downloaded_video.mp4"
+        );
+
+
+        return $response;
     }
 }

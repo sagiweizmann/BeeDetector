@@ -16,6 +16,7 @@
       >{{ $t('bee_detector.via_flying') }}</b-button>
     </div>
   </div>
+
 </template>
 
 <script>

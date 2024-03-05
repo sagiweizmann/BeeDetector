@@ -22,7 +22,13 @@
           {{ $t('common.nav.dashboard') }}
         </b-nav-item>
       </b-navbar-nav>
-
+      <div class="spacer"></div>
+      <b-img
+        :src="sceLogoImageURL"
+        class="d-inline-block align-middle"
+        style="width: 8rem; height: 3rem"
+      ></b-img
+      >&nbsp;
       <b-img
         :src="argiLogoImageURL"
         class="d-inline-block align-middle"
@@ -30,12 +36,6 @@
       ></b-img
       >&nbsp;
       <b-navbar-nav class="ml-auto">
-        <b-img
-          :src="sceLogoImageURL"
-          class="d-inline-block align-middle"
-          style="width: 8rem; height: 3rem"
-        ></b-img
-        >&nbsp;
         <b-nav-item-dropdown v-if="isAuthenticated" right>
           <template #button-content>
             <b-img
@@ -75,19 +75,6 @@
         >
           {{ $t('common.nav.register') }}
         </b-nav-item>
-        <b-nav-item-dropdown right>
-          <template #button-content>
-            {{ currentLocale }}
-          </template>
-          <b-dropdown-item
-            v-for="locale in availableLocales"
-            :key="locale.code"
-            :active="locale.code === currentLocale"
-            :to="switchLocalePath(locale.code)"
-          >
-            {{ locale.code }}
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -122,3 +109,10 @@ export default {
   },
 }
 </script>
+<style scoped>
+.spacer {
+  width: 50px; /* Set the width to 50 pixels */
+  height: 1px; /* Set a minimal height to make the div visible */
+  background-color: transparent; /* Make the background transparent */
+}
+</style>

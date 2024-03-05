@@ -141,8 +141,6 @@ export default {
   i18n: {
     locales: [
       { code: 'en', file: 'en.js' },
-      { code: 'fr', file: 'fr.js' },
-      { code: 'he', file: 'he.js' },
     ],
     defaultLocale: process.env.DEFAULT_LOCALE,
     strategy: 'prefix_and_default',

@@ -45,7 +45,6 @@
             id="input-fps"
             v-model="form.new_fps"
             type="text"
-            :placeholder="form.new_fps"
           />
         </b-form-group>
         <b-form-group
@@ -57,7 +56,6 @@
             id="input-min-move-distance"
             v-model="form.min_move_distance"
             type="text"
-            :placeholder="form.min_move_distance"
           />
         </b-form-group>
         <b-form-group
@@ -69,7 +67,6 @@
             id="input-max-move-distance"
             v-model="form.max_move_distance"
             type="text"
-            :placeholder="form.max_move_distance"
           />
         </b-form-group>
       </div>
@@ -88,7 +85,7 @@
         Your browser does not support the video tag.
       </video>
       <div id="analyzed-video-buttons">
-        <a :href="analyzedVideoSource" download>
+        <a :href="downloadVideoSource" :download="analyzedName">
           <b-button
             variant="primary"
           >
@@ -133,8 +130,10 @@ export default {
       videoSource: null,
       videoShow: false,
       analyzedVideoSource: null,
+      downloadVideoSource: null,
       analyzedVideoShow: false,
       analyzedCsvFile: null,
+      analyzedName: null,
     }
   },
   methods: {
@@ -143,6 +142,7 @@ export default {
       this.displayGlobalOverlay()
       this.videoShow = false;
       this.analyzedVideoShow = false;
+      this.analyzedName = this.form.flying_video;
       const formData = new FormData();
       formData.append('beeVideo', this.form.flying_video);
       formData.append('userId', this.user.id);
@@ -194,7 +194,9 @@ export default {
 
         this.analyzedVideoShow = true;
         this.analyzedVideoSource = this.$config.apiURL + responseData.videoOutput;
+        this.downloadVideoSource = await this.download(responseData.videoOutput);
         this.analyzedCsvFile = this.$config.apiURL + responseData.csvOutput;
+        this.analyzedName = this.analyzedName.name.replace('.mp4', '_analyzed.mp4');
 
         console.log('Video analyzed successfully');
 
@@ -204,7 +206,18 @@ export default {
       } finally {
         this.hideGlobalOverlay()
       }
-    }
+    },
+    download(filename) {
+      const downloadData = new FormData();
+      downloadData.append('filename', filename);
+      return fetch(this.$config.apiURL + 'videos/download', {
+        method: 'POST',
+        body: downloadData
+      }).then(response => response.blob())
+        .then(blob => {
+          return URL.createObjectURL(blob);
+        });
+    },
   },
 }
 </script>
