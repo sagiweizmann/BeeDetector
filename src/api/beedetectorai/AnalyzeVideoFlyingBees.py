@@ -7,18 +7,17 @@ import LoadModel
 import torch
 import sort
 import numpy as np
-import argparse
 
 
 def timeStr1(count, fps):
-    fps = 30
+    fps = 50
     h = int(count / fps / 60 / 60)
     m = int(count / fps / 60) - h * 60
     s = int(count / fps) - (m * 60 + h * 3600)
     f = 1000 * (count % fps / fps)
     str1 = "%02d:%02d:%02d.%03d" % (h, m, s, f)
     return str1
-    
+
 SIZE_TO_ADD = 300
 
 colors = [
@@ -63,7 +62,7 @@ def AnalyzeVideoFlyingBees(model, inputFilePath, outCsvPath, outVideoPath=''):
         csvFile = open(outCsvPath, 'w')
         csvFile.write(
             "Time, X (pixels), Y (pixels), ID \n")
-            
+
         vidcapIn = cv2.VideoCapture(inputFilePath)
         fps = vidcapIn.get(cv2.CAP_PROP_FPS)
 
@@ -105,7 +104,7 @@ def AnalyzeVideoFlyingBees(model, inputFilePath, outCsvPath, outVideoPath=''):
             for detect1 in json1:
                 if detect1['class'] == 0:
                     conf = detect1['confidence']
-                    if conf>0.5 and detect1['xmax']-detect1['xmin']<24 and detect1['xmax']-detect1['xmin']>5.2:  # conf >= 0.5:
+                    if True:  # conf >= 0.5:
                         x1 = round(detect1['xmin'])
                         x2 = round(detect1['xmax'])
                         y1 = round(detect1['ymin'])
@@ -136,10 +135,7 @@ def AnalyzeVideoFlyingBees(model, inputFilePath, outCsvPath, outVideoPath=''):
                 if outVideoPath:
                     image = cv2.rectangle(image, (int(detect11[0]+SIZE_TO_ADD), int(detect11[1]+SIZE_TO_ADD)),
                                           (int(detect11[2]-SIZE_TO_ADD), int(detect11[3]-SIZE_TO_ADD)), color, 2)
-                    if str(int(detect11[4])) == "1":
-                        trackerTestId = "Center"
-                    else:
-                        trackerTestId =  "Bee ID: "+ str(int(detect11[4])-1)
+                    trackerTestId = "ID: "+ str(int(detect11[4]))
                     # font
                     font = cv2.FONT_HERSHEY_DUPLEX
                     fontScale = 0.7
@@ -149,8 +145,8 @@ def AnalyzeVideoFlyingBees(model, inputFilePath, outCsvPath, outVideoPath=''):
 
             if outVideoPath:
                 videoOut.write(image)
-            
-            
+
+
             if count % fps == 1:
                 processTime = time.time() - startTime
                 remainTime = (processTime / count) * (totalFrames - count)
@@ -181,7 +177,6 @@ def AnalyzeVideoFlyingBees(model, inputFilePath, outCsvPath, outVideoPath=''):
 
 
     #return rc
-
 
 
 if __name__ == '__main__':
