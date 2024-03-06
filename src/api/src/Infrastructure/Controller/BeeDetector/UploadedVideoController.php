@@ -149,7 +149,6 @@ final class UploadedVideoController extends DownloadController{
             $realPathCsvOutput = '/var/www/html/public/' . $csvOutput;
             $command = "ffmpeg -i $realPathVideoOutput -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 192k $convertedVideoOutput";
             shell_exec($command);
-            chmod($realPathCsvOutput, 0666);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()]);
         }
