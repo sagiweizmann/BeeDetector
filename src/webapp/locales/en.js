@@ -121,7 +121,7 @@ export default {
   pages: {
     home: {
       welcome: 'Welcome!',
-      message: '',
+      message: 'Login or register to access the dashboard.',
     },
     login: {
       password: {
