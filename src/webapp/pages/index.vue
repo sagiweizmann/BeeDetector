@@ -30,10 +30,15 @@
       </b-col>
     </b-row>
     <!-- gif of walking bee -->
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center" style="margin-top:50px;gap: 20px">
       <b-img
         :src="walkGifurl"
         alt="Walking Bee"
+        class="img-fluid"
+      ></b-img>
+      <b-img
+        :src="flyingGifurl"
+        alt="Flying Bee"
         class="img-fluid"
       ></b-img>
     </div>
@@ -42,12 +47,14 @@
 <script>
 import { Auth } from '@/mixins/auth'
 import walkgif from "@/assets/images/WalkingBeeDemo.gif";
+import flyingif from "@/assets/images/FlyingGifDemo.gif";
 
 export default {
   mixins: [Auth],
   data() {
     return {
       walkGifurl : walkgif,
+      flyingGifurl : flyingif
     }
   },
 }

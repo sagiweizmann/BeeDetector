@@ -1,9 +1,7 @@
-<p align="center">
-    <img src="https://thecodingmachine.github.io/symfony-boilerplate/img/logo.svg" alt="BeeDetector" width="250" height="250" />
-</p>
-<h3 align="center">BeeDetector</h3>
-<p align="center"><a href="https://thecodingmachine.github.io/symfony-boilerplate">Documentation</a></p>
 
+![BeeDetector](logo_small.png)
+
+<a href="https://thecodingmachine.github.io/symfony-boilerplate">Documentation</a>
 
 # BeeDetector
 
