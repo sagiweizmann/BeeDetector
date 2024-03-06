@@ -50,7 +50,7 @@
         Your browser does not support the video tag.
       </video>
       <div id="analyzed-video-buttons">
-        <a :href="analyzedVideoSource" :download="analyzedName">
+        <a :href="downloadVideoSource" :download="analyzedName">
           <b-button
             variant="primary"
           >
