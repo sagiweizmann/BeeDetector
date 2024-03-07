@@ -142,7 +142,7 @@ export default {
       this.displayGlobalOverlay()
       this.videoShow = false;
       this.analyzedVideoShow = false;
-      this.analyzedName = this.form.flying_video;
+      this.analyzedName = this.form.flying_video.name;
       const formData = new FormData();
       formData.append('beeVideo', this.form.flying_video);
       formData.append('userId', this.user.id);
@@ -196,7 +196,7 @@ export default {
         this.analyzedVideoSource = this.$config.apiURL + responseData.videoOutput;
         this.downloadVideoSource = await this.download(responseData.videoOutput);
         this.analyzedCsvFile = this.$config.apiURL + responseData.csvOutput;
-        this.analyzedName = this.analyzedName.name.replace('.mp4', '_analyzed.mp4');
+        this.analyzedName = this.analyzedName.replace('.mp4', '_analyzed.mp4');
 
         console.log('Video analyzed successfully');
 
