@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f64400e013d4f2f2f9770f5cae9db63",
+    "content-hash": "c3608ea60a819843d17f78843d3b0ac1",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -4062,40 +4062,30 @@
         },
         {
             "name": "overblog/graphiql-bundle",
-            "version": "v0.3.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphiQLBundle.git",
-                "reference": "be0d4cecac49ee43e61fc31f3534e5eb872eb822"
+                "reference": "3161762574dcc6b264e1b6046e5fd2769e4e87c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphiQLBundle/zipball/be0d4cecac49ee43e61fc31f3534e5eb872eb822",
-                "reference": "be0d4cecac49ee43e61fc31f3534e5eb872eb822",
+                "url": "https://api.github.com/repos/overblog/GraphiQLBundle/zipball/3161762574dcc6b264e1b6046e5fd2769e4e87c4",
+                "reference": "3161762574dcc6b264e1b6046e5fd2769e4e87c4",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0",
-                "symfony/http-foundation": "^5.3.7 || ^6.0",
-                "symfony/routing": "^5.3.7 || ^6.0",
-                "symfony/twig-bundle": "^5.3.7 || ^6.0"
+                "php": ">=5.6",
+                "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
+                "symfony/twig-bundle": "^3.4 || ^4.0 || ^5.0"
             },
             "require-dev": {
-                "overblog/graphql-bundle": "dev-master",
-                "phpunit/phpunit": "^9.5.10",
-                "sensio/framework-extra-bundle": "^6.2",
-                "symfony/browser-kit": "^5.3 || ^6.0",
-                "symfony/config": "^5.3.7 || ^6.0",
-                "symfony/console": "^5.3.7 || ^6.0",
-                "symfony/dependency-injection": "^5.3.7 || ^6.0",
-                "symfony/dom-crawler": "^5.3.7 || ^6.0",
-                "symfony/expression-language": "^5.3.7 || ^6.0",
-                "symfony/finder": "^5.3.7 || ^6.0",
-                "symfony/framework-bundle": "^5.3.7 || ^6.0",
-                "symfony/templating": "^5.3.7 || ^6.0",
-                "symfony/yaml": "^5.3.7 || ^6.0",
-                "twig/twig": "^3.3.3",
-                "webonyx/graphql-php": "dev-master"
+                "overblog/graphql-bundle": ">=0.9",
+                "phpunit/phpunit": "^5.7 || ^6.0",
+                "sensio/framework-extra-bundle": "^3.0 || ^4.0 || ^5.0",
+                "symfony/browser-kit": "^3.4 || ^4.0 || ^5.0",
+                "symfony/templating": "^3.4 || ^4.0 || ^5.0",
+                "symfony/yaml": "^3.4 || ^4.0 || ^5.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -4105,8 +4095,11 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Overblog\\GraphiQLBundle\\": "src/"
-                }
+                    "Overblog\\GraphiQLBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4129,9 +4122,9 @@
             ],
             "support": {
                 "issues": "https://github.com/overblog/GraphiQLBundle/issues",
-                "source": "https://github.com/overblog/GraphiQLBundle/tree/v0.3.0"
+                "source": "https://github.com/overblog/GraphiQLBundle/tree/master"
             },
-            "time": "2021-12-08T11:28:42+00:00"
+            "time": "2020-02-03T16:17:50+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -10443,16 +10436,16 @@
         },
         {
             "name": "thecodingmachine/graphqlite-bundle",
-            "version": "v5.4.0",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/graphqlite-bundle.git",
-                "reference": "3ae908cc814dfa7283d869789db5852a200a46aa"
+                "reference": "b7682aa13ccec13f8eb0073b8ed89f7a757d831f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/graphqlite-bundle/zipball/3ae908cc814dfa7283d869789db5852a200a46aa",
-                "reference": "3ae908cc814dfa7283d869789db5852a200a46aa",
+                "url": "https://api.github.com/repos/thecodingmachine/graphqlite-bundle/zipball/b7682aa13ccec13f8eb0073b8ed89f7a757d831f",
+                "reference": "b7682aa13ccec13f8eb0073b8ed89f7a757d831f",
                 "shasum": ""
             },
             "require": {
@@ -10460,13 +10453,13 @@
                 "ext-json": "*",
                 "laminas/laminas-diactoros": "^2.2.2",
                 "nyholm/psr7": "^1.1",
-                "overblog/graphiql-bundle": "^0.2 || ^0.3",
-                "php": ">=7.4",
-                "symfony/console": "^5.4 || ^6",
-                "symfony/framework-bundle": "^5.4 || ^6",
+                "overblog/graphiql-bundle": "^0.1.2 | ^0.2",
+                "php": ">=7.2",
+                "symfony/console": "^4.1.9 | ^5",
+                "symfony/framework-bundle": "^4.2 || ^5",
                 "symfony/psr-http-message-bridge": "^2.0",
-                "symfony/translation": "^5.4 || ^6",
-                "symfony/validator": "^5.4 || ^6",
+                "symfony/translation": "^4.2 || ^5",
+                "symfony/validator": "^4.2 || ^5",
                 "thecodingmachine/cache-utils": "^1",
                 "thecodingmachine/graphqlite": "^5.0",
                 "thecodingmachine/graphqlite-symfony-validator-bridge": "^5.0"
@@ -10484,9 +10477,9 @@
                 "php-coveralls/php-coveralls": "^2.1.0",
                 "phpstan/phpstan": "^0.12.90",
                 "phpstan/phpstan-webmozart-assert": "^0.12.12",
-                "symfony/phpunit-bridge": "^5.4 || ^6",
-                "symfony/security-bundle": "^5.4 || ^6",
-                "symfony/yaml": "^5.4 || ^6",
+                "symfony/phpunit-bridge": "^5.3",
+                "symfony/security-bundle": "^4.2 || ^5",
+                "symfony/yaml": "^4.2 || ^5",
                 "thecodingmachine/phpstan-strict-rules": "^v0.12.1"
             },
             "suggest": {
@@ -10523,9 +10516,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thecodingmachine/graphqlite-bundle/issues",
-                "source": "https://github.com/thecodingmachine/graphqlite-bundle/tree/v5.4.0"
+                "source": "https://github.com/thecodingmachine/graphqlite-bundle/tree/v5.0.0"
             },
-            "time": "2022-06-02T12:44:10+00:00"
+            "time": "2021-11-09T14:07:36+00:00"
         },
         {
             "name": "thecodingmachine/graphqlite-symfony-validator-bridge",

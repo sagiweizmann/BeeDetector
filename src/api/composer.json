@@ -36,7 +36,7 @@
         "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
         "symfony/yaml": "5.4.*",
-        "thecodingmachine/graphqlite-bundle": "^5.0",
+        "thecodingmachine/graphqlite-bundle": "5.0.0",
         "thecodingmachine/safe": "^1.1",
         "thecodingmachine/tdbm-bundle": "^5.3",
         "thecodingmachine/tdbm-graphql-bundle": "^5.0",
